@@ -1,5 +1,5 @@
 
-./views estimate\
+views estimate\
    --dataset="cm_global_imp_0"\
    --name="testmodel"\
    --spec="os_acled_violence"\
