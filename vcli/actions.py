@@ -1,5 +1,6 @@
 
 import views
+import sklearn
 
 class Actions:
     def estimate(self,
@@ -10,7 +11,8 @@ class Actions:
             steps=[1],
             estimator = "sklearn.ensemble.RandomForestClassifier",
             est_args={},
-            outcome_type="prob"):
+            outcome_type="prob",
+            out = None):
         """
         Train a new model
         """
@@ -33,4 +35,5 @@ class Actions:
         predictions = m.predict(df)
         df_merged = views.utils.data.assign_into_df(df,predictions)
         m.evaluate(df_merged)
+        m.save(out)
         print(m.scores)

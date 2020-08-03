@@ -4,15 +4,17 @@ import os
 import logging
 import json
 
-class spec():
-    name = None 
+import vcli.interface
+
+class storage():
+    path = None 
     dataclass = None
     _deserializer = json.load
     _serializer = json.dump
 
     @classmethod
     def folder(cls):
-        return os.path.abspath(os.path.join(views.DIR_STORAGE,cls.name))
+        return os.path.abspath(os.path.join(views.DIR_STORAGE,cls.path))
 
     @classmethod
     def list(cls):
@@ -22,23 +24,16 @@ class spec():
         return [*os.listdir(cls.folder())]
 
     @classmethod
-    def save(cls,obj,name):
-        with open(os.path.join(cls.folder(),name),"w") as f:
+    def save(cls,obj,path):
+        with open(os.path.join(cls.folder(),path),"w") as f:
             cls._serializer(obj,f)
 
     @classmethod
-    def load(cls,name):
-        with open(os.path.join(cls.folder(),name),"r") as f:
+    def load(cls,path):
+        with open(os.path.join(cls.folder(),path),"r") as f:
             return cls._deserializer(f)
 
 class Management:
-
-    class models(spec):
-        name = "models"
-
-    class periods(spec):
-        name = "periods"
-
-    class logs(spec):
-        name = "logs"
+    models = vcli.interface.Model
+    datasets = vcli.interface.Dataset
 
