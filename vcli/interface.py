@@ -24,10 +24,10 @@ Base class for listing and inspecting objects
 @dataclass
 class ViewsData:
     _name: str
-    _test: Callable[[Any,str],bool]
-    _load: Callable[[Any,str],Any]
-    _dump: Callable[[Any,str,Any],None]
-    _inspect: Callable[[Any,str],str]
+    _test: Callable[[str],bool]
+    _load: Callable[[str],Any]
+    _dump: Callable[[str,Any],None]
+    _inspect: Callable[[str],str]
 
     def _path(self):
         return viewspath(self._name)
@@ -56,7 +56,7 @@ Model = ViewsData(
         _test = lambda p: checkType(p) is views.apps.model.Model,
         _load = joblib.load,
         _dump = joblib.dump,
-        _inspect = lambda x: x.__repr__
+        _inspect = lambda x: str(x)
     ) 
 Model.__doc__ = "Manage models"
 
