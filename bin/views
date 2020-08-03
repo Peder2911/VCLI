@@ -1,4 +1,10 @@
 #!/usr/bin/env conda run -n views2 python 
 from vcli import ViEWS
 import fire
+import logging 
+import os 
+
+if os.getenv("LOGGING"):
+   logging.basicConfig(level = int(os.getenv("LOGGING")))
+
 fire.Fire(ViEWS)

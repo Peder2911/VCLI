@@ -27,8 +27,10 @@ def checkType(p):
         h = hashlib.md5(raw)
     try:
         with open(typeFilePath(h.hexdigest()),"rb") as f:
+            logger.debug(f"Using cache to check type of {p}")
             return joblib.load(f)
     except FileNotFoundError:
+        logger.debug(f"Cache not found when checking type of {p}")
         fileobject = io.BytesIO(raw)
         t = type(load(fileobject))
         with open(typeFilePath(h.hexdigest()),"wb") as f:
