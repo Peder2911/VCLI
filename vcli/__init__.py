@@ -5,12 +5,11 @@ import sklearn
 import os
 import logging
 
-from vcli.management import Management
+from vcli.explorer import Explorer 
 from vcli.actions import Actions 
+#import vcli.interface
 
-import vcli.interface
-
-class ViEWS(Management,Actions):
+class ViEWS(Explorer,Actions):
     def __init__(self):
         if os.getenv("VIEWS_VERBOSE"):
             logging.basicConfig(level = logging.DEBUG)
